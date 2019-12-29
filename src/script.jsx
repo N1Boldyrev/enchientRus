@@ -12,25 +12,18 @@ function Audio(props){
                  <audio src="audio/7.mp3" id = "7"></audio>
                  <audio src="audio/8.mp3" id = "8"></audio>
                  <audio src="audio/9.mp3" id = "9"></audio>
+                 <audio src="dark_side/0.mp3" id = "10"></audio>
+                 <audio src="dark_side/1.mp3" id = "11"></audio>
+                 <audio src="dark_side/2.mp3" id = "12"></audio>
+                 <audio src="dark_side/3.mp3" id = "13"></audio>
+                 <audio src="dark_side/4.mp3" id = "14"></audio>
+                 <audio src="dark_side/5.mp3" id = "15"></audio>
+                 <audio src="dark_side/6.mp3" id = "16"></audio>
+                 <audio src="dark_side/7.mp3" id = "17"></audio>
+                 <audio src="dark_side/8.mp3" id = "18"></audio>
+                 <audio src="dark_side/9.mp3" id = "19"></audio>
         </div>
     );
-}
-
-function AudioDarkSide(props){
-    return(
-        <div>
-                 <audio src="dark_side/0.mp3" id = "0"></audio>
-                 <audio src="dark_side/1.mp3" id = "1"></audio>
-                 <audio src="dark_side/2.mp3" id = "2"></audio>
-                 <audio src="dark_side/3.mp3" id = "3"></audio>
-                 <audio src="dark_side/4.mp3" id = "4"></audio>
-                 <audio src="dark_side/5.mp3" id = "5"></audio>
-                 <audio src="dark_side/6.mp3" id = "6"></audio>
-                 <audio src="dark_side/7.mp3" id = "7"></audio>
-                 <audio src="dark_side/8.mp3" id = "8"></audio>
-                 <audio src="dark_side/9.mp3" id = "9"></audio>
-        </div>
-    )
 }
 
 
@@ -42,16 +35,15 @@ class Calculator extends React.Component{
         this.defFontSize = 60;
         this.state = {
         currentLine: "0",
-        currentValue: 0,
+        currentValue: 0, 
         currentOperation: "none",
         currentValueRight: "none",
         currentFontSize : this.defFontSize,
         fontScope: "none",
-        clickCounter: 0
+        clickCounter: 0,
     };
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
-        this.audio = <Audio/>;
     }
 
     changeFontSize(scopeInfo){
@@ -82,12 +74,12 @@ class Calculator extends React.Component{
 
     onNumberButtonClick(buttonValue){
         let currentLine = this.state.currentLine;
-        if(buttonValue != "clear"){
+        if(buttonValue != "clear"){                  
             this.setState({clickCounter: this.state.clickCounter + 1});
-            console.log(this.state.clickCounter);
             if(this.state.clickCounter > 10)
-                this.audio = <AudioDarkSide/>
-            document.getElementById(buttonValue).play();
+                document.getElementById(Number(buttonValue) + 10).play();
+            else
+                document.getElementById(buttonValue).play();
         }
         if (buttonValue == "clear"){
             this.setState({currentValue: 0, currentLine: "0", currentValueRight: "none"});
@@ -149,14 +141,12 @@ class Calculator extends React.Component{
             this.changeFontSize("secondScope");
         else
             this.changeFontSize("none");
-
-        console.log(String(final_value).length);
     }
     
     render() {
         return (
              <div>
-                 {this.audio}
+                 <Audio/>
                  <input type="text" name="" id="" onChange = {this.handleChange} value = {this.state.currentLine} className = "output" style = {{fontSize: this.state.currentFontSize}} maxLength = "20"/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"clear")} inner = "C"  className = {"operationButtonTop"}/>

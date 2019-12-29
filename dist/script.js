@@ -49,40 +49,36 @@ function Audio(props) {
   }), React.createElement("audio", {
     src: "audio/9.mp3",
     id: "9"
-  }));
-}
-
-function AudioDarkSide(props) {
-  return React.createElement("div", null, React.createElement("audio", {
+  }), React.createElement("audio", {
     src: "dark_side/0.mp3",
-    id: "0"
+    id: "10"
   }), React.createElement("audio", {
     src: "dark_side/1.mp3",
-    id: "1"
+    id: "11"
   }), React.createElement("audio", {
     src: "dark_side/2.mp3",
-    id: "2"
+    id: "12"
   }), React.createElement("audio", {
     src: "dark_side/3.mp3",
-    id: "3"
+    id: "13"
   }), React.createElement("audio", {
     src: "dark_side/4.mp3",
-    id: "4"
+    id: "14"
   }), React.createElement("audio", {
     src: "dark_side/5.mp3",
-    id: "5"
+    id: "15"
   }), React.createElement("audio", {
     src: "dark_side/6.mp3",
-    id: "6"
+    id: "16"
   }), React.createElement("audio", {
     src: "dark_side/7.mp3",
-    id: "7"
+    id: "17"
   }), React.createElement("audio", {
     src: "dark_side/8.mp3",
-    id: "8"
+    id: "18"
   }), React.createElement("audio", {
     src: "dark_side/9.mp3",
-    id: "9"
+    id: "19"
   }));
 }
 
@@ -116,7 +112,6 @@ function (_React$Component) {
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
-    _this.audio = React.createElement(Audio, null);
     return _this;
   }
 
@@ -157,8 +152,7 @@ function (_React$Component) {
           clickCounter: this.state.clickCounter + 1
         });
         console.log(this.state.clickCounter);
-        if (this.state.clickCounter > 10) this.audio = React.createElement(AudioDarkSide, null);
-        document.getElementById(buttonValue).play();
+        if (this.state.clickCounter > 10) document.getElementById(Number(buttonValue) + 10).play();else document.getElementById(buttonValue).play();
       }
 
       if (buttonValue == "clear") {
@@ -248,7 +242,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("div", null, this.audio, React.createElement("input", {
+      return React.createElement("div", null, React.createElement(Audio, null), React.createElement("input", {
         type: "text",
         name: "",
         id: "",
