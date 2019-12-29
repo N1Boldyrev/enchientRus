@@ -74,7 +74,7 @@ class Calculator extends React.Component{
 
     onNumberButtonClick(buttonValue){
         let currentLine = this.state.currentLine;
-        if(buttonValue != "clear"){                  
+        if(buttonValue != "clear" && buttonValue != "."){                  
             this.setState({clickCounter: this.state.clickCounter + 1});
             if(this.state.clickCounter > 10)
                 document.getElementById(Number(buttonValue) + 10).play();
@@ -108,15 +108,15 @@ class Calculator extends React.Component{
     onOperationButtonClick(buttonValue){
         const currentValue = this.state.currentValue;
         const currentValueRight = this.state.currentValueRight;
-        if(buttonValue == "+/-")
-        {
-            if(currentValueRight == "none")
+        const currentLine = this.state.currentLine;
+        if(buttonValue == "+/-"){
+            if(currentValue == currentLine)
                 this.setState({currentValue: currentValue * -1, currentLine: currentValue * -1});
             else
-                this.setState({currentValueRight : currentValueRight * -1, currentLine: currentValueRight * -1});
+                this.setState({currentValueRight: currentValueRight * -1, currentLine: currentValueRight * -1});
         }
         else
-            this.setState({currentValueRight: 0,currentOperation: buttonValue});
+        this.setState({currentValueRight: 0,currentOperation: buttonValue});
     }
 
     calculate(){
@@ -125,6 +125,10 @@ class Calculator extends React.Component{
         const currentOperation = this.state.currentOperation;
         let final_value = 0;
 
+        if(currentValue == 0 || currentValueRight == "none" || currentOperation == "none")
+            this.setState({currentLine: currentValue});
+
+        else{
         switch(currentOperation){
             case "+" : final_value = currentValue + currentValueRight; break;
             case "-" : final_value = currentValue - currentValueRight; break;
@@ -141,6 +145,7 @@ class Calculator extends React.Component{
             this.changeFontSize("secondScope");
         else
             this.changeFontSize("none");
+        }
     }
     
     render() {

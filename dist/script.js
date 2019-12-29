@@ -147,7 +147,7 @@ function (_React$Component) {
     value: function onNumberButtonClick(buttonValue) {
       var currentLine = this.state.currentLine;
 
-      if (buttonValue != "clear") {
+      if (buttonValue != "clear" && buttonValue != ".") {
         this.setState({
           clickCounter: this.state.clickCounter + 1
         });
@@ -186,9 +186,10 @@ function (_React$Component) {
     value: function onOperationButtonClick(buttonValue) {
       var currentValue = this.state.currentValue;
       var currentValueRight = this.state.currentValueRight;
+      var currentLine = this.state.currentLine;
 
       if (buttonValue == "+/-") {
-        if (currentValueRight == "none") this.setState({
+        if (currentValue == currentLine) this.setState({
           currentValue: currentValue * -1,
           currentLine: currentValue * -1
         });else this.setState({
@@ -207,35 +208,38 @@ function (_React$Component) {
       var currentValueRight = this.state.currentValueRight;
       var currentOperation = this.state.currentOperation;
       var final_value = 0;
+      if (currentValue == 0 || currentValueRight == "none" || currentOperation == "none") this.setState({
+        currentLine: currentValue
+      });else {
+        switch (currentOperation) {
+          case "+":
+            final_value = currentValue + currentValueRight;
+            break;
 
-      switch (currentOperation) {
-        case "+":
-          final_value = currentValue + currentValueRight;
-          break;
+          case "-":
+            final_value = currentValue - currentValueRight;
+            break;
 
-        case "-":
-          final_value = currentValue - currentValueRight;
-          break;
+          case "*":
+            final_value = currentValue * currentValueRight;
+            break;
 
-        case "*":
-          final_value = currentValue * currentValueRight;
-          break;
+          case "/":
+            final_value = currentValue / currentValueRight;
+            break;
 
-        case "/":
-          final_value = currentValue / currentValueRight;
-          break;
+          case "%":
+            final_value = currentValue * (currentValueRight / 100);
+            break;
+        }
 
-        case "%":
-          final_value = currentValue * (currentValueRight / 100);
-          break;
+        this.setState({
+          currentValue: final_value,
+          currentLine: final_value
+        });
+        final_value = String(final_value);
+        if (final_value.length >= 7 && final_value.length < 14) this.changeFontSize("firstScope");else if (final_value.length >= 14) this.changeFontSize("secondScope");else this.changeFontSize("none");
       }
-
-      this.setState({
-        currentValue: final_value,
-        currentLine: final_value
-      });
-      final_value = String(final_value);
-      if (final_value.length >= 7 && final_value.length < 14) this.changeFontSize("firstScope");else if (final_value.length >= 14) this.changeFontSize("secondScope");else this.changeFontSize("none");
     }
   }, {
     key: "render",
