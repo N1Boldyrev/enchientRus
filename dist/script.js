@@ -52,6 +52,40 @@ function Audio(props) {
   }));
 }
 
+function AudioDarkSide(props) {
+  return React.createElement("div", null, React.createElement("audio", {
+    src: "dark_side/0.mp3",
+    id: "0"
+  }), React.createElement("audio", {
+    src: "dark_side/1.mp3",
+    id: "1"
+  }), React.createElement("audio", {
+    src: "dark_side/2.mp3",
+    id: "2"
+  }), React.createElement("audio", {
+    src: "dark_side/3.mp3",
+    id: "3"
+  }), React.createElement("audio", {
+    src: "dark_side/4.mp3",
+    id: "4"
+  }), React.createElement("audio", {
+    src: "dark_side/5.mp3",
+    id: "5"
+  }), React.createElement("audio", {
+    src: "dark_side/6.mp3",
+    id: "6"
+  }), React.createElement("audio", {
+    src: "dark_side/7.mp3",
+    id: "7"
+  }), React.createElement("audio", {
+    src: "dark_side/8.mp3",
+    id: "8"
+  }), React.createElement("audio", {
+    src: "dark_side/9.mp3",
+    id: "9"
+  }));
+}
+
 var CButton = function CButton(props) {
   return React.createElement("button", {
     onClick: props.onClick,
@@ -77,10 +111,12 @@ function (_React$Component) {
       currentOperation: "none",
       currentValueRight: "none",
       currentFontSize: _this.defFontSize,
-      fontScope: "none"
+      fontScope: "none",
+      clickCounter: 0
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
+    _this.audio = React.createElement(Audio, null);
     return _this;
   }
 
@@ -115,7 +151,15 @@ function (_React$Component) {
     key: "onNumberButtonClick",
     value: function onNumberButtonClick(buttonValue) {
       var currentLine = this.state.currentLine;
-      if (buttonValue != "clear") document.getElementById(buttonValue).play();
+
+      if (buttonValue != "clear") {
+        this.setState({
+          clickCounter: this.state.clickCounter + 1
+        });
+        console.log(this.state.clickCounter);
+        if (this.state.clickCounter > 10) this.audio = React.createElement(AudioDarkSide, null);
+        document.getElementById(buttonValue).play();
+      }
 
       if (buttonValue == "clear") {
         this.setState({
@@ -204,7 +248,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("div", null, React.createElement(Audio, null), React.createElement("input", {
+      return React.createElement("div", null, this.audio, React.createElement("input", {
         type: "text",
         name: "",
         id: "",
@@ -214,7 +258,7 @@ function (_React$Component) {
         style: {
           fontSize: this.state.currentFontSize
         },
-        maxLength: "14"
+        maxLength: "20"
       }), React.createElement("br", null), React.createElement(CButton, {
         onClick: this.onNumberButtonClick.bind(this, "clear"),
         inner: "C",

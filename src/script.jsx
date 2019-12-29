@@ -16,6 +16,23 @@ function Audio(props){
     );
 }
 
+function AudioDarkSide(props){
+    return(
+        <div>
+                 <audio src="dark_side/0.mp3" id = "0"></audio>
+                 <audio src="dark_side/1.mp3" id = "1"></audio>
+                 <audio src="dark_side/2.mp3" id = "2"></audio>
+                 <audio src="dark_side/3.mp3" id = "3"></audio>
+                 <audio src="dark_side/4.mp3" id = "4"></audio>
+                 <audio src="dark_side/5.mp3" id = "5"></audio>
+                 <audio src="dark_side/6.mp3" id = "6"></audio>
+                 <audio src="dark_side/7.mp3" id = "7"></audio>
+                 <audio src="dark_side/8.mp3" id = "8"></audio>
+                 <audio src="dark_side/9.mp3" id = "9"></audio>
+        </div>
+    )
+}
+
 
 const CButton = (props) => <button onClick = {props.onClick} className = {props.className}>{props.inner}</button>;
 
@@ -29,10 +46,12 @@ class Calculator extends React.Component{
         currentOperation: "none",
         currentValueRight: "none",
         currentFontSize : this.defFontSize,
-        fontScope: "none"
+        fontScope: "none",
+        clickCounter: 0
     };
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
+        this.audio = <Audio/>;
     }
 
     changeFontSize(scopeInfo){
@@ -63,8 +82,13 @@ class Calculator extends React.Component{
 
     onNumberButtonClick(buttonValue){
         let currentLine = this.state.currentLine;
-        if(buttonValue != "clear")
+        if(buttonValue != "clear"){
+            this.setState({clickCounter: this.state.clickCounter + 1});
+            console.log(this.state.clickCounter);
+            if(this.state.clickCounter > 10)
+                this.audio = <AudioDarkSide/>
             document.getElementById(buttonValue).play();
+        }
         if (buttonValue == "clear"){
             this.setState({currentValue: 0, currentLine: "0", currentValueRight: "none"});
             this.changeFontSize("none");
@@ -132,8 +156,8 @@ class Calculator extends React.Component{
     render() {
         return (
              <div>
-                 <Audio/>
-                 <input type="text" name="" id="" onChange = {this.handleChange} value = {this.state.currentLine} className = "output" style = {{fontSize: this.state.currentFontSize}} maxLength = "14"/>
+                 {this.audio}
+                 <input type="text" name="" id="" onChange = {this.handleChange} value = {this.state.currentLine} className = "output" style = {{fontSize: this.state.currentFontSize}} maxLength = "20"/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"clear")} inner = "C"  className = {"operationButtonTop"}/>
                  <CButton onClick = {this.onOperationButtonClick.bind(this,"+/-")} inner = "+/-" className = {"operationButtonTop"}/>
