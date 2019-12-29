@@ -50,34 +50,34 @@ function Audio(props) {
     src: "audio/9.mp3",
     id: "9"
   }), React.createElement("audio", {
-    src: "dark_side/0.mp3",
+    src: "audio/10.mp3",
     id: "10"
   }), React.createElement("audio", {
-    src: "dark_side/1.mp3",
+    src: "audio/11.mp3",
     id: "11"
   }), React.createElement("audio", {
-    src: "dark_side/2.mp3",
+    src: "audio/12.mp3",
     id: "12"
   }), React.createElement("audio", {
-    src: "dark_side/3.mp3",
+    src: "audio/13.mp3",
     id: "13"
   }), React.createElement("audio", {
-    src: "dark_side/4.mp3",
+    src: "audio/14.mp3",
     id: "14"
   }), React.createElement("audio", {
-    src: "dark_side/5.mp3",
+    src: "audio/15.mp3",
     id: "15"
   }), React.createElement("audio", {
-    src: "dark_side/6.mp3",
+    src: "audio/16.mp3",
     id: "16"
   }), React.createElement("audio", {
-    src: "dark_side/7.mp3",
+    src: "audio/17.mp3",
     id: "17"
   }), React.createElement("audio", {
-    src: "dark_side/8.mp3",
+    src: "audio/18.mp3",
     id: "18"
   }), React.createElement("audio", {
-    src: "dark_side/9.mp3",
+    src: "audio/19.mp3",
     id: "19"
   }));
 }
@@ -151,7 +151,6 @@ function (_React$Component) {
         this.setState({
           clickCounter: this.state.clickCounter + 1
         });
-        console.log(this.state.clickCounter);
         if (this.state.clickCounter > 10) document.getElementById(Number(buttonValue) + 10).play();else document.getElementById(buttonValue).play();
       }
 
@@ -237,7 +236,6 @@ function (_React$Component) {
       });
       final_value = String(final_value);
       if (final_value.length >= 7 && final_value.length < 14) this.changeFontSize("firstScope");else if (final_value.length >= 14) this.changeFontSize("secondScope");else this.changeFontSize("none");
-      console.log(String(final_value).length);
     }
   }, {
     key: "render",

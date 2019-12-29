@@ -12,16 +12,16 @@ function Audio(props){
                  <audio src="audio/7.mp3" id = "7"></audio>
                  <audio src="audio/8.mp3" id = "8"></audio>
                  <audio src="audio/9.mp3" id = "9"></audio>
-                 <audio src="dark_side/0.mp3" id = "10"></audio>
-                 <audio src="dark_side/1.mp3" id = "11"></audio>
-                 <audio src="dark_side/2.mp3" id = "12"></audio>
-                 <audio src="dark_side/3.mp3" id = "13"></audio>
-                 <audio src="dark_side/4.mp3" id = "14"></audio>
-                 <audio src="dark_side/5.mp3" id = "15"></audio>
-                 <audio src="dark_side/6.mp3" id = "16"></audio>
-                 <audio src="dark_side/7.mp3" id = "17"></audio>
-                 <audio src="dark_side/8.mp3" id = "18"></audio>
-                 <audio src="dark_side/9.mp3" id = "19"></audio>
+                 <audio src="audio/10.mp3" id = "10"></audio>
+                 <audio src="audio/11.mp3" id = "11"></audio>
+                 <audio src="audio/12.mp3" id = "12"></audio>
+                 <audio src="audio/13.mp3" id = "13"></audio>
+                 <audio src="audio/14.mp3" id = "14"></audio>
+                 <audio src="audio/15.mp3" id = "15"></audio>
+                 <audio src="audio/16.mp3" id = "16"></audio>
+                 <audio src="audio/17.mp3" id = "17"></audio>
+                 <audio src="audio/18.mp3" id = "18"></audio>
+                 <audio src="audio/19.mp3" id = "19"></audio>
         </div>
     );
 }
