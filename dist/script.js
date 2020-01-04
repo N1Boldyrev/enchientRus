@@ -85,6 +85,7 @@ function Audio(props) {
 var CButton = function CButton(props) {
   return React.createElement("button", {
     onClick: props.onClick,
+    id: props.id,
     className: props.className
   }, props.inner);
 };
@@ -108,7 +109,8 @@ function (_React$Component) {
       currentValueRight: "none",
       currentFontSize: _this.defFontSize,
       fontScope: "none",
-      clickCounter: 0
+      clickCounter: 0,
+      activeOperation: "none"
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
@@ -161,6 +163,7 @@ function (_React$Component) {
           currentValueRight: "none"
         });
         this.changeFontSize("none");
+        this.changeOperationButtonColor("none");
       } else if (this.state.currentValueRight == "none") {
         if (this.state.currentLine == "0") this.setState({
           currentValue: Number(buttonValue),
@@ -182,8 +185,26 @@ function (_React$Component) {
       if (currentLine.length >= 7 && currentLine.length < 14) this.changeFontSize("firstScope");else if (currentLine.length >= 14) this.changeFontSize("secondScope");else this.changeFontSize("none");
     }
   }, {
+    key: "changeOperationButtonColor",
+    value: function changeOperationButtonColor(buttonId) {
+      if (this.state.activeOperation != "none" || buttonId == "none") {
+        document.getElementById(this.state.activeOperation).className = "operationButton";
+        this.setState({
+          activeOperation: "none"
+        });
+      }
+
+      if (buttonId != "none") {
+        document.getElementById(buttonId).className = "operationButton_active";
+        this.setState({
+          activeOperation: buttonId
+        });
+      }
+    }
+  }, {
     key: "onOperationButtonClick",
-    value: function onOperationButtonClick(buttonValue) {
+    value: function onOperationButtonClick(buttonValue, buttonId) {
+      this.changeOperationButtonColor(buttonId);
       var currentValue = this.state.currentValue;
       var currentValueRight = this.state.currentValueRight;
       var currentLine = this.state.currentLine;
@@ -208,6 +229,7 @@ function (_React$Component) {
       var currentValueRight = this.state.currentValueRight;
       var currentOperation = this.state.currentOperation;
       var final_value = 0;
+      this.changeOperationButtonColor("none");
       if (currentValue == 0 || currentValueRight == "none" || currentOperation == "none") this.setState({
         currentLine: currentValue
       });else {
@@ -260,16 +282,17 @@ function (_React$Component) {
         inner: "C",
         className: "operationButtonTop"
       }), React.createElement(CButton, {
-        onClick: this.onOperationButtonClick.bind(this, "+/-"),
+        onClick: this.onOperationButtonClick.bind(this, "+/-", "none"),
         inner: "+/-",
         className: "operationButtonTop"
       }), React.createElement(CButton, {
-        onClick: this.onOperationButtonClick.bind(this, "%"),
+        onClick: this.onOperationButtonClick.bind(this, "%", "none"),
         inner: "%",
         className: "operationButtonTop"
       }), React.createElement(CButton, {
-        onClick: this.onOperationButtonClick.bind(this, "/"),
+        onClick: this.onOperationButtonClick.bind(this, "/", "/"),
         inner: "/",
+        id: "/",
         className: "operationButton"
       }), React.createElement("br", null), React.createElement(CButton, {
         onClick: this.onNumberButtonClick.bind(this, "7"),
@@ -284,8 +307,9 @@ function (_React$Component) {
         inner: "9",
         className: "numberButton"
       }), React.createElement(CButton, {
-        onClick: this.onOperationButtonClick.bind(this, "*"),
+        onClick: this.onOperationButtonClick.bind(this, "*", "*"),
         inner: "x",
+        id: "*",
         className: "operationButton"
       }), React.createElement("br", null), React.createElement(CButton, {
         onClick: this.onNumberButtonClick.bind(this, "4"),
@@ -300,8 +324,9 @@ function (_React$Component) {
         inner: "6",
         className: "numberButton"
       }), React.createElement(CButton, {
-        onClick: this.onOperationButtonClick.bind(this, "-"),
+        onClick: this.onOperationButtonClick.bind(this, "-", "-"),
         inner: "-",
+        id: "-",
         className: "operationButton"
       }), React.createElement("br", null), React.createElement(CButton, {
         onClick: this.onNumberButtonClick.bind(this, "1"),
@@ -316,8 +341,9 @@ function (_React$Component) {
         inner: "3",
         className: "numberButton"
       }), React.createElement(CButton, {
-        onClick: this.onOperationButtonClick.bind(this, "+"),
+        onClick: this.onOperationButtonClick.bind(this, "+", "+"),
         inner: "+",
+        id: "+",
         className: "operationButton"
       }), React.createElement("br", null), React.createElement(CButton, {
         onClick: this.onNumberButtonClick.bind(this, "0"),

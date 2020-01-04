@@ -27,7 +27,7 @@ function Audio(props){
 }
 
 
-const CButton = (props) => <button onClick = {props.onClick} className = {props.className}>{props.inner}</button>;
+const CButton = (props) => <button onClick = {props.onClick} id = {props.id} className = {props.className}>{props.inner}</button>;
 
 class Calculator extends React.Component{
     constructor(props){
@@ -41,6 +41,7 @@ class Calculator extends React.Component{
         currentFontSize : this.defFontSize,
         fontScope: "none",
         clickCounter: 0,
+        activeOperation: "none"
     };
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
@@ -84,6 +85,7 @@ class Calculator extends React.Component{
         if (buttonValue == "clear"){
             this.setState({currentValue: 0, currentLine: "0", currentValueRight: "none"});
             this.changeFontSize("none");
+            this.changeOperationButtonColor("none");
         }
         else if(this.state.currentValueRight == "none"){
             if(this.state.currentLine == "0")
@@ -105,7 +107,19 @@ class Calculator extends React.Component{
             this.changeFontSize("none");
     }
 
-    onOperationButtonClick(buttonValue){
+    changeOperationButtonColor(buttonId){
+        if(this.state.activeOperation != "none" || buttonId == "none"){
+            document.getElementById(this.state.activeOperation).className = "operationButton";
+            this.setState({activeOperation:"none"});
+            }
+        if(buttonId != "none"){
+            document.getElementById(buttonId).className = "operationButton_active";
+            this.setState({activeOperation: buttonId});
+        }
+    }
+
+    onOperationButtonClick(buttonValue, buttonId){
+        this.changeOperationButtonColor(buttonId);
         const currentValue = this.state.currentValue;
         const currentValueRight = this.state.currentValueRight;
         const currentLine = this.state.currentLine;
@@ -124,7 +138,7 @@ class Calculator extends React.Component{
         const currentValueRight = this.state.currentValueRight;
         const currentOperation = this.state.currentOperation;
         let final_value = 0;
-
+        this.changeOperationButtonColor("none");
         if(currentValue == 0 || currentValueRight == "none" || currentOperation == "none")
             this.setState({currentLine: currentValue});
 
@@ -154,25 +168,25 @@ class Calculator extends React.Component{
                  <Audio/>
                  <input type="text" name="" id="" onChange = {this.handleChange} value = {this.state.currentLine} className = "output" style = {{fontSize: this.state.currentFontSize}} maxLength = "20"/>
                  <br/>
-                 <CButton onClick = {this.onNumberButtonClick.bind(this,"clear")} inner = "C"  className = {"operationButtonTop"}/>
-                 <CButton onClick = {this.onOperationButtonClick.bind(this,"+/-")} inner = "+/-" className = {"operationButtonTop"}/>
-                 <CButton onClick = {this.onOperationButtonClick.bind(this,"%")} inner = "%" className = {"operationButtonTop"}/>
-                 <CButton onClick = {this.onOperationButtonClick.bind(this,"/")} inner = "/" className = {"operationButton"}/>
+                 <CButton onClick = {this.onNumberButtonClick.bind(this,"clear")} inner = "C" className = {"operationButtonTop"}/>
+                 <CButton onClick = {this.onOperationButtonClick.bind(this,"+/-","none")} inner = "+/-" className = {"operationButtonTop"}/>
+                 <CButton onClick = {this.onOperationButtonClick.bind(this,"%","none")} inner = "%" className = {"operationButtonTop"}/>
+                 <CButton onClick = {this.onOperationButtonClick.bind(this,"/","/")} inner = "/" id = "/" className = {"operationButton"}/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"7")} inner = "7" className = {"numberButton"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"8")} inner = "8" className = {"numberButton"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"9")} inner = "9" className = {"numberButton"}/>
-                 <CButton onClick = {this.onOperationButtonClick.bind(this,"*")} inner = "x" className = {"operationButton"}/>
+                 <CButton onClick = {this.onOperationButtonClick.bind(this,"*", "*")} inner = "x" id = "*" className = {"operationButton"}/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"4")} inner = "4" className = {"numberButton"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"5")} inner = "5" className = {"numberButton"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"6")} inner = "6" className = {"numberButton"}/>
-                 <CButton onClick = {this.onOperationButtonClick.bind(this,"-")} inner = "-" className = {"operationButton"}/>
+                 <CButton onClick = {this.onOperationButtonClick.bind(this,"-","-")} inner = "-" id = "-" className = {"operationButton"}/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"1")} inner = "1" className = {"numberButton"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"2")} inner = "2" className = {"numberButton"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"3")} inner = "3" className = {"numberButton"}/>
-                 <CButton onClick = {this.onOperationButtonClick.bind(this,"+")} inner = "+" className = {"operationButton"}/>
+                 <CButton onClick = {this.onOperationButtonClick.bind(this,"+","+")} inner = "+" id = "+" className = {"operationButton"}/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"0")} inner = "0" className = {"numberButton zero"}/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,".")} inner = "." className = {"numberButton"}/>
