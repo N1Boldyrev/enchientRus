@@ -16,7 +16,7 @@ button {
   }
 .operationButton{
     background-color: #FF9F09;
-    transition: linear 0.5s;
+    transition: linear 0.3s;
 }
 .operationButton:hover{
     background-color: #FFB641;
@@ -26,11 +26,12 @@ button {
 .operationButton_active{
     background-color: white;
     color: #FF9F09;
+    transition: linear 0.3s;
 }
 
 .operationButtonTop{
     background-color: #A5A5A5;
-    transition: linear 0.5s;
+    transition: linear 0.3s;
     color: black;
 }
 
@@ -39,7 +40,7 @@ button {
 }
 .numberButton{
     background-color: #333333;
-    transition: linear 0.5s;    
+    transition: linear 0.3s;    
 }
 
 .numberButton:hover{
