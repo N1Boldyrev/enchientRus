@@ -41,10 +41,12 @@ class Calculator extends React.Component{
         currentFontSize : this.defFontSize,
         fontScope: "none",
         clickCounter: 0,
-        activeOperation: "none"
+        activeOperation: "none",
+        natural_numbers_mode : false
     };
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
+        this.onDotСlick = this.onDotСlick.bind(this);
     }
 
     changeFontSize(scopeInfo){
@@ -73,6 +75,23 @@ class Calculator extends React.Component{
             this.changeFontSize("none");
     }
 
+    onDotСlick(){
+        let r_val = false;
+        if(this.state.currentValueRight != "none")
+            r_val = true;
+        if(this.state.natural_numbers_mode != true || r_val == true)
+        {
+            this.setState({
+                natural_numbers_mode: true,
+                currentLine: this.state.currentLine + "."
+            });
+            if(this.state.currentValueRight != "none")
+                this.setState({currentValueRight: this.currentValueRight + "."});
+            else
+                this.setState({currentValue: this.currentValue + "."});
+        }
+    }
+
     onNumberButtonClick(buttonValue){
         let currentLine = this.state.currentLine;
         if(buttonValue != "clear" && buttonValue != "."){                  
@@ -83,7 +102,7 @@ class Calculator extends React.Component{
                 document.getElementById(buttonValue).play();
         }
         if (buttonValue == "clear"){
-            this.setState({currentValue: 0, currentLine: "0", currentValueRight: "none"});
+            this.setState({currentValue: 0, currentLine: "0", currentValueRight: "none", natural_numbers_mode: false});
             this.changeFontSize("none");
             this.changeOperationButtonColor("none");
         }
@@ -108,11 +127,11 @@ class Calculator extends React.Component{
     }
 
     changeOperationButtonColor(buttonId){
-        if(this.state.activeOperation != "none" || buttonId == "none"){
+        if(this.state.activeOperation != "none" && buttonId == "none"){
             document.getElementById(this.state.activeOperation).className = "operationButton";
             this.setState({activeOperation:"none"});
             }
-        if(buttonId != "none"){
+        else if(buttonId != "none"){
             document.getElementById(buttonId).className = "operationButton_active";
             this.setState({activeOperation: buttonId});
         }
@@ -189,7 +208,7 @@ class Calculator extends React.Component{
                  <CButton onClick = {this.onOperationButtonClick.bind(this,"+","+")} inner = "+" id = "+" className = {"operationButton"}/>
                  <br/>
                  <CButton onClick = {this.onNumberButtonClick.bind(this,"0")} inner = "0" className = {"numberButton zero"}/>
-                 <CButton onClick = {this.onNumberButtonClick.bind(this,".")} inner = "." className = {"numberButton"}/>
+                 <CButton onClick = {this.onDotСlick} inner = "." className = {"numberButton"}/>
                  <CButton onClick = {this.calculate} inner = "=" className = {"operationButton"}/>
              </div>
         );

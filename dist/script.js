@@ -110,10 +110,12 @@ function (_React$Component) {
       currentFontSize: _this.defFontSize,
       fontScope: "none",
       clickCounter: 0,
-      activeOperation: "none"
+      activeOperation: "none",
+      natural_numbers_mode: false
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
+    _this.onDotСlick = _this.onDotСlick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -145,6 +147,24 @@ function (_React$Component) {
       if (event.target.value.length >= 7 && event.target.value.length < 14) this.changeFontSize("firstScope");else if (event.target.value.length >= 14) this.changeFontSize("secondScope");else this.changeFontSize("none");
     }
   }, {
+    key: "onDot\u0421lick",
+    value: function onDotLick() {
+      var r_val = false;
+      if (this.state.currentValueRight != "none") r_val = true;
+
+      if (this.state.natural_numbers_mode != true || r_val == true) {
+        this.setState({
+          natural_numbers_mode: true,
+          currentLine: this.state.currentLine + "."
+        });
+        if (this.state.currentValueRight != "none") this.setState({
+          currentValueRight: this.currentValueRight + "."
+        });else this.setState({
+          currentValue: this.currentValue + "."
+        });
+      }
+    }
+  }, {
     key: "onNumberButtonClick",
     value: function onNumberButtonClick(buttonValue) {
       var currentLine = this.state.currentLine;
@@ -160,7 +180,8 @@ function (_React$Component) {
         this.setState({
           currentValue: 0,
           currentLine: "0",
-          currentValueRight: "none"
+          currentValueRight: "none",
+          natural_numbers_mode: false
         });
         this.changeFontSize("none");
         this.changeOperationButtonColor("none");
@@ -187,14 +208,12 @@ function (_React$Component) {
   }, {
     key: "changeOperationButtonColor",
     value: function changeOperationButtonColor(buttonId) {
-      if (this.state.activeOperation != "none" || buttonId == "none") {
+      if (this.state.activeOperation != "none" && buttonId == "none") {
         document.getElementById(this.state.activeOperation).className = "operationButton";
         this.setState({
           activeOperation: "none"
         });
-      }
-
-      if (buttonId != "none") {
+      } else if (buttonId != "none") {
         document.getElementById(buttonId).className = "operationButton_active";
         this.setState({
           activeOperation: buttonId
@@ -350,7 +369,7 @@ function (_React$Component) {
         inner: "0",
         className: "numberButton zero"
       }), React.createElement(CButton, {
-        onClick: this.onNumberButtonClick.bind(this, "."),
+        onClick: this.onDotСlick,
         inner: ".",
         className: "numberButton"
       }), React.createElement(CButton, {
