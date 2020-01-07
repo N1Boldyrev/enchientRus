@@ -42,7 +42,8 @@ class Calculator extends React.Component{
         fontScope: "none",
         clickCounter: 0,
         activeOperation: "none",
-        natural_numbers_mode : false
+        natural_numbers_mode : false,
+        keyValue: "none"
     };
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
@@ -215,8 +216,6 @@ class Calculator extends React.Component{
     }
 
 }
-
-
 ReactDOM.render(
     <Calculator/>,document.getElementById("root")
 )

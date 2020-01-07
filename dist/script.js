@@ -111,7 +111,8 @@ function (_React$Component) {
       fontScope: "none",
       clickCounter: 0,
       activeOperation: "none",
-      natural_numbers_mode: false
+      natural_numbers_mode: false,
+      keyValue: "none"
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
@@ -382,5 +383,13 @@ function (_React$Component) {
 
   return Calculator;
 }(React.Component);
+
+document.getElementsByTagName("body")[0].onkeydown = function (event) {
+  var keyValue = event.key;
+  Calculator.setState({
+    keyValue: keyValue
+  });
+  console.log(Calculator.state.keyValue);
+};
 
 ReactDOM.render(React.createElement(Calculator, null), document.getElementById("root"));

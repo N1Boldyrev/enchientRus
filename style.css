@@ -7,7 +7,7 @@ body{
 }
 button {
     border-radius: 100%;
-    font-size: 25px;
+    font-size: 120%;
     border: 2px solid black;
     margin: 3px;
     width: 60px;
