@@ -18,6 +18,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var keyValue;
+document.getElementsByTagName("body")[0].onkeydown = getKeyVal;
+
+function getKeyVal(event) {
+  keyValue = event.key;
+}
+
 function Audio(props) {
   return React.createElement("div", null, React.createElement("audio", {
     src: "audio/0.mp3",
@@ -112,7 +119,7 @@ function (_React$Component) {
       clickCounter: 0,
       activeOperation: "none",
       natural_numbers_mode: false,
-      keyValue: "none"
+      keyValue: props.keyVal
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
@@ -186,7 +193,7 @@ function (_React$Component) {
         });
         this.changeFontSize("none");
         this.changeOperationButtonColor("none");
-      } else if (this.state.currentValueRight == "none") {
+      } else if (this.state.currentValueRight == "none" && this.state.currentLine.length <= 20) {
         if (this.state.currentLine == "0") this.setState({
           currentValue: Number(buttonValue),
           currentLine: buttonValue
@@ -194,8 +201,8 @@ function (_React$Component) {
           currentValue: Number(currentLine + buttonValue),
           currentLine: currentLine + buttonValue
         });
-      } else {
-        if (this.state.currentOperation != "none" && this.state.currentValueRight == "0") this.setState({
+      } else if (this.state.currentLine.length <= 20) {
+        if (this.state.currentOperation != "none" && this.state.currentValueRight == "0" && this.state.currentLine.length <= 20) this.setState({
           currentValueRight: Number(buttonValue),
           currentLine: buttonValue
         });else this.setState({
@@ -384,12 +391,6 @@ function (_React$Component) {
   return Calculator;
 }(React.Component);
 
-document.getElementsByTagName("body")[0].onkeydown = function (event) {
-  var keyValue = event.key;
-  Calculator.setState({
-    keyValue: keyValue
-  });
-  console.log(Calculator.state.keyValue);
-};
-
-ReactDOM.render(React.createElement(Calculator, null), document.getElementById("root"));
+ReactDOM.render(React.createElement(Calculator, {
+  keyVal: keyValue
+}), document.getElementById("root"));
