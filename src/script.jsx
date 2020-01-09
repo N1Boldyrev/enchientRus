@@ -33,16 +33,15 @@ class Calculator extends React.Component{
         super(props);
         this.defFontSize = 60;
         this.state = {
-        currentLine: "0",
-        currentValue: 0, 
-        currentOperation: "none",
-        currentValueRight: "none",
-        currentFontSize : this.defFontSize,
-        fontScope: "none",
-        clickCounter: 0,
-        activeOperation: "none",
-        natural_numbers_mode : false,
-        keyValue: props.keyVal
+        currentLine: "0", //Значение в поле ввода
+        currentValue: 0,  //Левый операнд
+        currentOperation: "none", //Выбранная операция 
+        currentValueRight: "none", // Правый операнд
+        currentFontSize : this.defFontSize, //Размер выводимого шрифта
+        fontScope: "none", // Состояние выводимого шрифта
+        clickCounter: 0, //Счетчик нажатия на кнопки
+        activeOperation: "none", //Выбранная операция для смены цвета кнопки
+        natural_numbers_mode : false, //Режим работы с натуральными числами
     };
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
@@ -106,14 +105,14 @@ class Calculator extends React.Component{
             this.changeFontSize("none");
             this.changeOperationButtonColor("none");
         }
-        else if(this.state.currentValueRight == "none" && this.state.currentLine.length <= 20){
+        else if(this.state.currentValueRight == "none"){
             if(this.state.currentLine == "0")
                 this.setState({currentValue: Number(buttonValue), currentLine: buttonValue});
             else
                 this.setState({currentValue: Number(currentLine + buttonValue), currentLine : currentLine + buttonValue});
         } 
-        else if(this.state.currentLine.length <= 20){
-            if(this.state.currentOperation != "none" && this.state.currentValueRight == "0" && this.state.currentLine.length <= 20)
+        else{
+            if(this.state.currentOperation != "none" && this.state.currentValueRight == "0")
                 this.setState({currentValueRight: Number(buttonValue), currentLine: buttonValue});
             else
                 this.setState({currentValueRight: Number(currentLine + buttonValue), currentLine : currentLine + buttonValue});
@@ -216,5 +215,6 @@ class Calculator extends React.Component{
 
 }
 ReactDOM.render(
-    <Calculator/>,document.getElementById("root")
+    <Calculator/>
+    ,document.getElementById("root")
 )
