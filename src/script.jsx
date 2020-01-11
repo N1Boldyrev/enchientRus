@@ -46,6 +46,31 @@ class Calculator extends React.Component{
         this.handleChange = this.handleChange.bind(this);
         this.calculate = this.calculate.bind(this);
         this.onDotСlick = this.onDotСlick.bind(this);
+        this.onKeyPressed = this.onKeyPressed.bind(this);
+    }
+
+    componentDidMount(){
+        document.addEventListener("keydown",this.onKeyPressed);
+    }
+
+    onKeyPressed(event){
+        const numbers = ["0","1","2","3","4","5","6","7","8","9","."];
+        const operations = ["+","-","/","*","%","+/-"];
+        const strEvent = String(event.key);
+        for(let i = 0; i < numbers.length; i++){
+            if(event.key == numbers[i]){
+                this.onNumberButtonClick(strEvent);
+                return;
+            }
+        }
+        for(let i = 0; i < operations.length; i++)
+            if(event.key == operations[i]){
+                this.onOperationButtonClick(strEvent,strEvent);
+                return;
+            }
+        if(event.key == "=" || event.key == "Enter"){
+            this.calculate();
+        }
     }
 
     changeFontSize(scopeInfo){

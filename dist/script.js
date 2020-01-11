@@ -125,10 +125,41 @@ function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.calculate = _this.calculate.bind(_assertThisInitialized(_this));
     _this.onDotСlick = _this.onDotСlick.bind(_assertThisInitialized(_this));
+    _this.onKeyPressed = _this.onKeyPressed.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Calculator, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener("keydown", this.onKeyPressed);
+    }
+  }, {
+    key: "onKeyPressed",
+    value: function onKeyPressed(event) {
+      var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+      var operations = ["+", "-", "/", "*", "%", "+/-"];
+      var strEvent = String(event.key);
+
+      for (var i = 0; i < numbers.length; i++) {
+        if (event.key == numbers[i]) {
+          this.onNumberButtonClick(strEvent);
+          return;
+        }
+      }
+
+      for (var _i = 0; _i < operations.length; _i++) {
+        if (event.key == operations[_i]) {
+          this.onOperationButtonClick(strEvent, strEvent);
+          return;
+        }
+      }
+
+      if (event.key == "=" || event.key == "Enter") {
+        this.calculate();
+      }
+    }
+  }, {
     key: "changeFontSize",
     value: function changeFontSize(scopeInfo) {
       var fontScope = this.state.fontScope;
