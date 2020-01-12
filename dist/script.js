@@ -159,7 +159,7 @@ function (_React$Component) {
         this.calculate();
       }
 
-      if (event.key == ".") this.onDotСlick();
+      if (event.key == "." || event.code == "NumpadDecimal") this.onDotСlick();
       if (event.key == "Backspace" || event.key == "Escape" || event.key == "Delete") this.onNumberButtonClick("clear");
     }
   }, {
@@ -251,14 +251,23 @@ function (_React$Component) {
   }, {
     key: "changeOperationButtonColor",
     value: function changeOperationButtonColor(buttonId) {
-      if (this.state.activeOperation != "none" || buttonId == "none") {
-        document.getElementById(this.state.activeOperation).className = "operationButton";
+      var activeOperation = this.state.activeOperation;
+
+      if (buttonId == "none" && activeOperation != "none") {
+        //Если пользователь очищает поле     
+        document.getElementById(activeOperation).className = "operationButton";
         this.setState({
           activeOperation: "none"
         });
-      }
-
-      if (buttonId != "none") {
+      } else if (buttonId != "none" && activeOperation != "none") {
+        //Если одна активная операция заменяется другой
+        document.getElementById(activeOperation).className = "operationButton";
+        document.getElementById(buttonId).className = "operationButton_active";
+        this.setState({
+          activeOperation: buttonId
+        });
+      } else if (buttonId != "none" && activeOperation == "none") {
+        //Если нет активной операции
         document.getElementById(buttonId).className = "operationButton_active";
         this.setState({
           activeOperation: buttonId
