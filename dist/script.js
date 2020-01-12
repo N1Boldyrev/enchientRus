@@ -137,7 +137,7 @@ function (_React$Component) {
   }, {
     key: "onKeyPressed",
     value: function onKeyPressed(event) {
-      var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+      var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
       var operations = ["+", "-", "/", "*", "%", "+/-"];
       var strEvent = String(event.key);
 
@@ -158,6 +158,9 @@ function (_React$Component) {
       if (event.key == "=" || event.key == "Enter") {
         this.calculate();
       }
+
+      if (event.key == ".") this.onDotСlick();
+      if (event.key == "Backspace" || event.key == "Escape" || event.key == "Delete") this.onNumberButtonClick("clear");
     }
   }, {
     key: "changeFontSize",
@@ -248,12 +251,14 @@ function (_React$Component) {
   }, {
     key: "changeOperationButtonColor",
     value: function changeOperationButtonColor(buttonId) {
-      if (this.state.activeOperation != "none" && buttonId == "none") {
+      if (this.state.activeOperation != "none" || buttonId == "none") {
         document.getElementById(this.state.activeOperation).className = "operationButton";
         this.setState({
           activeOperation: "none"
         });
-      } else if (buttonId != "none") {
+      }
+
+      if (buttonId != "none") {
         document.getElementById(buttonId).className = "operationButton_active";
         this.setState({
           activeOperation: buttonId
